@@ -8,13 +8,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      uses:action/checkout@v3
-      uses:pnpm/action-setup@v2
-      with:
-        version: 7
-      uses:action/checkout@v3
-      with:
-        node-version: 21.x
-        cache:"pnpm"
-  run: pnpm install --frozen-lockfile
-  rin: pnpm run lint && pnpm run build
+      - uses: action/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 7
+      - uses: action/checkout@v3
+        with:
+          node-version: 21.x
+          cache: "pnpm"
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run lint && pnpm run build
