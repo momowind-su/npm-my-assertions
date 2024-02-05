@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "es2016",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "./dist",
+    "noUncheckedIndexedAccess": true,
+    "noEmit": true,
+  },
+  "include": [
+    "index.ts"
+  ]
+}
