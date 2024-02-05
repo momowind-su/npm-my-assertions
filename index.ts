@@ -28,3 +28,46 @@ export function assertObjectContains(actual: Record<string, any>, expected: Reco
   return 'Object contains assertion passed';
 }
 
+export function assertDeepInRange(
+  actual: any,
+  expected: any,
+  range: number,
+  message: string = 'Deep equality within range assertion failed'
+): string {
+  const isDeepEqualWithinRange = deepEqualWithinRange(actual, expected, range);
+
+  if (!isDeepEqualWithinRange) {
+    return `${message} - Values are not deeply equal within the specified range`;
+  }
+
+  return `Deep equality within range assertion passed - Values are deeply equal within the specified range`;
+
+  function deepEqualWithinRange(objA: any, objB: any, currentRange: number): boolean {
+    if (currentRange < 0) {
+      return false;  // Stop recursion when range is exhausted
+    }
+
+    if (typeof objA !== 'object' || typeof objB !== 'object') {
+      return objA === objB;  // Base case: compare primitive values
+    }
+
+    const keysA = Object.keys(objA);
+    const keysB = Object.keys(objB);
+
+    if (keysA.length !== keysB.length) {
+      return false;  // Different number of properties
+    }
+
+    for (const key of keysA) {
+      if (!keysB.includes(key)) {
+        return false;  // Property missing in objB
+      }
+
+      if (!deepEqualWithinRange(objA[key], objB[key], currentRange - 1)) {
+        return false;  // Recursively check nested properties
+      }
+    }
+
+    return true;
+  }
+}
