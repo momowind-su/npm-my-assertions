@@ -1,4 +1,4 @@
-
+import { toBe } from './expectOptions/toBe';
 // my-assertions/index.ts
 export function assertEqual(actual: any, expected: any, message: string = 'Assertion failed'): string {
   if (actual !== expected) {
@@ -71,3 +71,9 @@ export function assertDeepInRange(
     return true;
   }
 }
+
+export class expect {
+  public static toBe = new toBe();
+}
+
+
