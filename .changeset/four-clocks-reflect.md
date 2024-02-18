@@ -1,5 +1,0 @@
----
-"my-assertions": minor
----
-
-init
