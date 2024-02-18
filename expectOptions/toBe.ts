@@ -1,4 +1,8 @@
+import { an } from './an';
 export class toBe {
+
+  public an = new an();
+
   public equals(actual: any, expected: any): string {
     if (actual !== expected) {
       return `Assertion failed - Expected: ${expected}, Actual: ${actual}`;
