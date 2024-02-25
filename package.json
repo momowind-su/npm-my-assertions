@@ -1,6 +1,6 @@
 {
-  "name": "my-assertions",
-  "version": "2.0.0",
+  "name": "@momowind-su/assertions",
+  "version": "0.0.3",
   "description": "",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -16,5 +16,8 @@
     "@changesets/cli": "^2.27.1",
     "tsup": "^8.0.1",
     "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "@types/node": "^20.11.19"
   }
 }

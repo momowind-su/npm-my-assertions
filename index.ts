@@ -17,15 +17,21 @@ export function assertDeepEqual(actual: any, expected: any, message: string = 'D
   return `Deep equality assertion passed - Expected: ${expectedStr}, Actual: ${actualStr}`;
 }
 
-export function assertObjectContains(actual: Record<string, any>, expected: Record<string, any>, message: string = 'Object contains assertion failed'): string {
-  for (const key in expected) {
-    if (expected.hasOwnProperty(key)) {
-      if (actual[key] !== expected[key]) {
-        return `${message} - Property '${key}' mismatch - Expected: ${expected[key]}, Actual: ${actual[key]}`;
-      }
+export function assertDeepEqualArray(actual: any[], expected: any[], message: string = 'Deep equality assertion failed'): string {
+  if (actual.length !== expected.length) {
+    return `${message} - Arrays have different lengths. Expected: ${expected.length}, Actual: ${actual.length}`;
+  }
+
+  const sortedActual = actual.map(a => JSON.stringify(a)).sort();
+  const sortedExpected = expected.map(e => JSON.stringify(e)).sort();
+
+  for (let i = 0; i < sortedActual.length; i++) {
+    if (sortedActual[i] !== sortedExpected[i]) {
+      return `${message} - Expected: ${sortedExpected}, Actual: ${sortedActual}`;
     }
   }
-  return 'Object contains assertion passed';
+
+  return `Deep equality assertion passed - Expected: ${JSON.stringify(expected)}, Actual: ${JSON.stringify(actual)}`;
 }
 
 export function assertDeepInRange(
@@ -71,9 +77,20 @@ export function assertDeepInRange(
     return true;
   }
 }
+class expectClass {
+  public toBe = new toBe();
 
-export class expect {
-  public static toBe = new toBe();
+  toContainKeys(actual: Record<string, any>, expected: Record<string, any>): string {
+    for (const key in expected) {
+      if (expected.hasOwnProperty(key)) {
+        if (actual[key] !== expected[key]) {
+          return `Assertion failed - Property '${key}' mismatch - Expected: ${expected[key]}, Actual: ${actual[key]}`;
+        }
+      }
+    }
+    return 'Assertion passed - Object contains expected keys';
+  }
 }
+export const expect = new expectClass();
 
 
